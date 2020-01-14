@@ -31,5 +31,8 @@ module.exports = {
   logout(req, res) {
     req.session.destroy();
     res.sendStatus(200);
+  },
+  getUser(req, res) {
+    res.send(req.session.user);
   }
 };

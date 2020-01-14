@@ -1,4 +1,4 @@
-import { SIGNUP, LOGIN } from './actionTypes';
+import { SIGNUP, LOGIN, GET_USER } from './actionTypes';
 import axios from 'axios';
 
 const initialState = {
@@ -22,6 +22,13 @@ export const login = (username, password) => {
     payload: axios
       .post('/api/login', { username, password })
       .then(res => res.data)
+  };
+};
+
+export const getUser = () => {
+  return {
+    type: GET_USER,
+    payload: axios.get('/api/user').then(res => res.data)
   };
 };
 
@@ -51,6 +58,10 @@ export default function(state = initialState, action) {
         ...state,
         error: payload
       };
+    case `${GET_USER}_FULFILLED`:
+      return { ...state, user: payload, error: false };
+    case `${GET_USER}_REJECTED`:
+      return { ...state, redirect: true, error: payload };
     default:
       return state;
   }
