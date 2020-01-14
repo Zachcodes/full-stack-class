@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Post from './Post';
 import { getPosts, savePost } from '../redux/postsReducer';
 
 class Posts extends Component {
@@ -27,10 +28,14 @@ class Posts extends Component {
   };
 
   render() {
-    console.log('this.props for Posts', this.props);
+    // console.log('this.props for Posts', this.props);
     const { title, content } = this.state;
+    const { posts } = this.props;
     return (
       <div>
+        {posts.map(post => {
+          return <Post key={post.id} {...post} />;
+        })}
         <div>
           <input
             type="text"
