@@ -5,7 +5,7 @@ module.exports = {
   async login(req, res) {
     const db = req.app.get('db');
     const { username, password } = req.body;
-    const [existingUser] = await db.users.get_users_by_username(username);
+    const [existingUser] = await db.users.get_user_by_username(username);
     if (!existingUser) return res.status(401).send('Username not found');
     const result = await bcrypt.compare(password, existingUser.password);
     if (result) {
