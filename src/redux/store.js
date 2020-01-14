@@ -1,5 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import promiseMiddleware from 'redux-promise-middleware';
 import userReducer from './userReducer';
+import postsReducer from './postsReducer';
 
-export default createStore(userReducer, applyMiddleware(promiseMiddleware));
+const rootReducer = combineReducers({
+  user: userReducer,
+  posts: postsReducer
+});
+
+export default createStore(rootReducer, applyMiddleware(promiseMiddleware));

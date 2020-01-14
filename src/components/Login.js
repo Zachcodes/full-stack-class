@@ -58,6 +58,6 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => state.user;
 
 export default connect(mapStateToProps, { login })(Login);

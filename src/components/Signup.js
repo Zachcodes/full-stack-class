@@ -59,7 +59,7 @@ class Signup extends Component {
 }
 
 const mapStateToProps = state => {
-  return state;
+  return state.user;
 };
 
 export default connect(mapStateToProps, { signup })(Signup);

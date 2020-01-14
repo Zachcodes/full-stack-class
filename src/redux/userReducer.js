@@ -1,4 +1,4 @@
-import { SIGNUP, LOGIN, GET_USER } from './actionTypes';
+import { SIGNUP, LOGIN, GET_USER, LOGOUT } from './actionTypes';
 import axios from 'axios';
 
 const initialState = {
@@ -32,9 +32,16 @@ export const getUser = () => {
   };
 };
 
+export const logout = () => {
+  return {
+    type: LOGOUT,
+    payload: axios.delete('/api/logout')
+  };
+};
+
 export default function(state = initialState, action) {
   const { type, payload } = action;
-  console.log(action);
+  // console.log(action);
   switch (type) {
     case `${LOGIN}_FULFILLED`:
       return {
@@ -47,6 +54,8 @@ export default function(state = initialState, action) {
         ...state,
         error: payload
       };
+    case `${LOGOUT}_FULFILLED`:
+      return { user: {}, redirect: true, error: false };
     case `${SIGNUP}_FULFILLED`:
       return {
         redirect: false,
