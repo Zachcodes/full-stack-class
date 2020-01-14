@@ -1,4 +1,4 @@
-import { SIGNUP } from './actionTypes';
+import { SIGNUP, LOGIN } from './actionTypes';
 import axios from 'axios';
 
 const initialState = {
@@ -16,10 +16,30 @@ export const signup = (username, password) => {
   };
 };
 
+export const login = (username, password) => {
+  return {
+    type: LOGIN,
+    payload: axios
+      .post('/api/login', { username, password })
+      .then(res => res.data)
+  };
+};
+
 export default function(state = initialState, action) {
   const { type, payload } = action;
   console.log(action);
   switch (type) {
+    case `${LOGIN}_FULFILLED`:
+      return {
+        user: payload,
+        redirect: false,
+        error: false
+      };
+    case `${LOGIN}_REJECTED`:
+      return {
+        ...state,
+        error: payload
+      };
     case `${SIGNUP}_FULFILLED`:
       return {
         redirect: false,
